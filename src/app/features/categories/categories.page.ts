@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonList, IonLabel, IonCheckbox } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonList, IonLabel } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category } from 'src/app/models/category.model';
@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton,
     CommonModule,
-    FormsModule, IonList, IonLabel, IonCheckbox]
+    FormsModule, IonList, IonLabel]
 })
 export class CategoriesPage implements OnInit {
 

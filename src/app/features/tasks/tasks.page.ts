@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonList, IonLabel, IonCheckbox } from '@ionic/angular/standalone';
+import {
+  IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput,
+  IonButton, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect
+} from '@ionic/angular/standalone';
 import { TaskService } from 'src/app/services/task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
+import { Category } from 'src/app/models/category.model';
+import { Task } from 'src/app/models/task.model';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-tasks',
@@ -12,48 +18,68 @@ import { v4 as uuid } from 'uuid';
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton,
     CommonModule,
-    FormsModule, IonList, IonLabel, IonCheckbox]
+    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect]
 })
-export class TasksPage implements OnInit{
+export class TasksPage implements OnInit {
 
-  tasks:any[] = [];
-  newTask='';
+  tasks: Task[] = [];
+  newTask = '';
 
-  constructor(private taskService:TaskService) {}
+  categories: Category[] = [];
+  selectedCategory = '';
 
-   ngOnInit(){
+  constructor(
+    private taskService: TaskService,
+    private categoryService: CategoryService
+  ) { }
+
+  ngOnInit() {
     this.loadTasks();
+    this.loadCategories();
   }
 
-  loadTasks(){
+  loadTasks() {
     console.log('load task');
-    
     this.tasks = this.taskService.getTasks();
+    console.log(this.tasks);
+
+  }
+
+  loadCategories() {
+    console.log('load category');
+    this.categories = this.categoryService.getCategories();
+    console.log(this.categories);
   }
 
 
 
-  addTask(){
-    if(!this.newTask) return;
+  addTask() {
+    if (!this.newTask) return;
 
     this.taskService.addTask({
-      id:uuid(),
-      title:this.newTask,
-      completed:false
+      id: uuid(),
+      title: this.newTask,
+      completed: false,
+      categoryId: this.selectedCategory
     });
 
-    this.newTask='';
+    this.newTask = '';
     this.loadTasks();
   }
 
-  toggleTask(id:string){
+  toggleTask(id: string) {
     this.taskService.toggleTask(id);
     this.loadTasks();
   }
 
-  deleteTask(id:string){
+  deleteTask(id: string) {
     this.taskService.deleteTask(id);
     this.loadTasks();
+  }
+
+  getCategoryName(categoryId?: string) {
+    const category = this.categories.find(c => c.id === categoryId);
+    return category ? category.name : 'Sin categoría';
   }
 
 }
