@@ -28,6 +28,8 @@ export class TasksPage implements OnInit {
   categories: Category[] = [];
   selectedCategory = '';
 
+  filterCategory = '';
+
   constructor(
     private taskService: TaskService,
     private categoryService: CategoryService
@@ -78,8 +80,21 @@ export class TasksPage implements OnInit {
   }
 
   getCategoryName(categoryId?: string) {
+    if (!categoryId) return 'Sin categoría';
     const category = this.categories.find(c => c.id === categoryId);
     return category ? category.name : 'Sin categoría';
+  }
+
+  getFilteredTasks() {
+    if (!this.filterCategory) {
+      return this.tasks;
+    }
+
+    if (this.filterCategory === 'none') {
+      return this.tasks.filter(task => !task.categoryId);
+    }
+
+    return this.tasks.filter(task => task.categoryId === this.filterCategory);
   }
 
 }

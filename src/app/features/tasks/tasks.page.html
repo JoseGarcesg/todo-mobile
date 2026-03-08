@@ -25,8 +25,19 @@
     <ion-button (click)="addTask()">Agregar</ion-button>
   </ion-item>
 
+  <ion-item>
+    <ion-label position="stacked">Filtrar por categoría</ion-label>
+    <ion-select [(ngModel)]="filterCategory">
+      <ion-select-option value="">Todas</ion-select-option>
+      <ion-select-option value="none">Sin Categoría</ion-select-option>
+      <ion-select-option *ngFor="let c of categories" [value]="c.id">
+        {{c.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-list>
-    <ion-item *ngFor="let task of tasks">
+    <ion-item *ngFor="let task of getFilteredTasks()">
 
       <ion-checkbox slot="start" [checked]="task.completed" (ionChange)="toggleTask(task.id)">
       </ion-checkbox>
