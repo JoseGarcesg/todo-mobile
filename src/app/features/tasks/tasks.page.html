@@ -1,13 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tasks</ion-title>
+    <ion-title>
+      Tasks
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">tasks</ion-title>
+      <ion-title size="large">Tasks</ion-title>
     </ion-toolbar>
   </ion-header>
+
+   <ion-item>
+    <ion-input [(ngModel)]="newTask" placeholder="Nueva tarea"></ion-input>
+    <ion-button (click)="addTask()">Agregar</ion-button>
+  </ion-item>
+
+   <ion-list>
+    <ion-item *ngFor="let task of tasks">
+
+      <ion-label>{{task.title}}</ion-label>
+
+    </ion-item>
+  </ion-list>
 </ion-content>
