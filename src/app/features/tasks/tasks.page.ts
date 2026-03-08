@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput,
-  IonButton, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect
+  IonButton, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect,IonChip
 } from '@ionic/angular/standalone';
 import { TaskService } from 'src/app/services/task.service';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,7 @@ import { CategoryService } from 'src/app/services/category.service';
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton,
     CommonModule,
-    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect]
+    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect,IonChip]
 })
 export class TasksPage implements OnInit {
 

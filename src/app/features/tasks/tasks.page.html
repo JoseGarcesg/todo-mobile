@@ -43,7 +43,12 @@
       </ion-checkbox>
 
       <ion-label>{{task.title}}</ion-label>
-      <ion-label>Categoría: {{getCategoryName(task.categoryId)}}</ion-label>
+      <ion-chip *ngIf="task.categoryId">
+        <ion-label>{{getCategoryName(task.categoryId)}}</ion-label>
+      </ion-chip>
+      <ion-chip color="medium" *ngIf="!task.categoryId">
+        <ion-label>Sin categoría</ion-label>
+      </ion-chip>
 
       <ion-button color="danger" (click)="deleteTask(task.id)">
         Eliminar
