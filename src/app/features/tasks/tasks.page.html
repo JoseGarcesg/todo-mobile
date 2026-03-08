@@ -29,9 +29,9 @@
     <ion-label position="stacked">Filtrar por categoría</ion-label>
     <ion-select [(ngModel)]="filterCategory" (ionChange)="applyFilter()">  
       <ion-select-option value="">Todas</ion-select-option>
-      <ion-select-option value="none">Sin Categoría</ion-select-option>
+      <ion-select-option value="none">Sin Categoría ({{countTasksByCategory()}})</ion-select-option>
       <ion-select-option *ngFor="let c of categories" [value]="c.id">
-        {{c.name}}
+        {{c.name}} ({{countTasksByCategory(c.id)}})
       </ion-select-option>
     </ion-select>
   </ion-item>

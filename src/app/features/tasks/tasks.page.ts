@@ -18,7 +18,7 @@ import { CategoryService } from 'src/app/services/category.service';
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton,
     CommonModule,
-    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect,IonChip]
+    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect, IonChip]
 })
 export class TasksPage implements OnInit {
 
@@ -64,7 +64,7 @@ export class TasksPage implements OnInit {
       id: uuid(),
       title: this.newTask,
       completed: false,
-      categoryId: this.selectedCategory
+      categoryId: this.selectedCategory || undefined
     });
 
     this.newTask = '';
@@ -115,6 +115,16 @@ export class TasksPage implements OnInit {
       t => t.categoryId === this.filterCategory
     );
 
+  }
+
+  countTasksByCategory(categoryId?: string) {
+
+    if (categoryId === undefined) {
+      // tareas sin categoría
+      return this.tasks.filter(t => !t.categoryId).length;
+    }
+
+    return this.tasks.filter(t => t.categoryId === categoryId).length;
   }
 
 }
