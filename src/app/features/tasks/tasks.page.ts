@@ -46,4 +46,9 @@ export class TasksPage implements OnInit{
     this.loadTasks();
   }
 
+  toggleTask(id:string){
+    this.taskService.toggleTask(id);
+    this.loadTasks();
+  }
+
 }
