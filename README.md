@@ -68,6 +68,7 @@ cordova build android --release
 ```
 
 > APK generado en: `platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk`
+> descargar de https://github.com/JoseGarcesg/todo-mobile/blob/develop/app-release-unsigned.apk
 
 ---
 
