@@ -51,4 +51,9 @@ export class TasksPage implements OnInit{
     this.loadTasks();
   }
 
+  deleteTask(id:string){
+    this.taskService.deleteTask(id);
+    this.loadTasks();
+  }
+
 }
