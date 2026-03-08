@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput,
-  IonButton, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect,IonChip
-} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect, IonChip, IonListHeader } from '@ionic/angular/standalone';
 import { TaskService } from 'src/app/services/task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +15,7 @@ import { CategoryService } from 'src/app/services/category.service';
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton,
     CommonModule,
-    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect, IonChip]
+    FormsModule, IonList, IonLabel, IonCheckbox, IonSelectOption, IonSelect, IonChip, IonListHeader]
 })
 export class TasksPage implements OnInit {
 
@@ -29,7 +26,10 @@ export class TasksPage implements OnInit {
   selectedCategory = '';
 
   filterCategory = '';
-  filteredTasks: Task[] = [];
+  //filteredTasks: Task[] = [];
+
+  pendingTasks: Task[] = [];
+  completedTasks: Task[] = [];
 
   constructor(
     private taskService: TaskService,
@@ -101,19 +101,30 @@ export class TasksPage implements OnInit {
 
   applyFilter() {
 
+    let filtered: Task[] = [];
+
     if (!this.filterCategory) {
-      this.filteredTasks = this.tasks;
-      return;
+      filtered = this.tasks;
+    } else if (this.filterCategory === 'none') {
+      filtered = this.tasks.filter(t => !t.categoryId);
+    } else {
+      filtered = this.tasks.filter(t => t.categoryId === this.filterCategory);
     }
 
-    if (this.filterCategory === 'none') {
+    // Separar tareas pendientes y completadas
+    this.pendingTasks = filtered.filter(t => !t.completed);
+    this.completedTasks = filtered.filter(t => t.completed);
+
+    /* if (this.filterCategory === 'none') {
       this.filteredTasks = this.tasks.filter(t => !t.categoryId);
       return;
     }
 
     this.filteredTasks = this.tasks.filter(
       t => t.categoryId === this.filterCategory
-    );
+    ); */
+
+
 
   }
 

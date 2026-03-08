@@ -37,7 +37,34 @@
   </ion-item>
 
   <ion-list>
-    <ion-item *ngFor="let task of filteredTasks">
+    <ion-list-header>
+      <ion-label>Pendientes</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of pendingTasks">
+
+      <ion-checkbox slot="start" [checked]="task.completed" (ionChange)="toggleTask(task.id)">
+      </ion-checkbox>
+
+      <ion-label>{{task.title}}</ion-label>
+      <ion-chip *ngIf="task.categoryId">
+        <ion-label>{{getCategoryName(task.categoryId)}}</ion-label>
+      </ion-chip>
+      <ion-chip color="medium" *ngIf="!task.categoryId">
+        <ion-label>Sin categoría</ion-label>
+      </ion-chip>
+
+      <ion-button color="danger" (click)="deleteTask(task.id)">
+        Eliminar
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Completadas</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of completedTasks">
 
       <ion-checkbox slot="start" [checked]="task.completed" (ionChange)="toggleTask(task.id)">
       </ion-checkbox>
