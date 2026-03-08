@@ -29,6 +29,7 @@ export class TasksPage implements OnInit {
   selectedCategory = '';
 
   filterCategory = '';
+  filteredTasks: Task[] = [];
 
   constructor(
     private taskService: TaskService,
@@ -41,16 +42,17 @@ export class TasksPage implements OnInit {
   }
 
   loadTasks() {
-    console.log('load task');
+    //console.log('load task');
     this.tasks = this.taskService.getTasks();
-    console.log(this.tasks);
+    //console.log(this.tasks);
+    this.applyFilter();
 
   }
 
   loadCategories() {
-    console.log('load category');
+    //console.log('load category');
     this.categories = this.categoryService.getCategories();
-    console.log(this.categories);
+    //console.log(this.categories);
   }
 
 
@@ -85,7 +87,7 @@ export class TasksPage implements OnInit {
     return category ? category.name : 'Sin categoría';
   }
 
-  getFilteredTasks() {
+  /* getFilteredTasks() {
     if (!this.filterCategory) {
       return this.tasks;
     }
@@ -95,6 +97,24 @@ export class TasksPage implements OnInit {
     }
 
     return this.tasks.filter(task => task.categoryId === this.filterCategory);
+  } */
+
+  applyFilter() {
+
+    if (!this.filterCategory) {
+      this.filteredTasks = this.tasks;
+      return;
+    }
+
+    if (this.filterCategory === 'none') {
+      this.filteredTasks = this.tasks.filter(t => !t.categoryId);
+      return;
+    }
+
+    this.filteredTasks = this.tasks.filter(
+      t => t.categoryId === this.filterCategory
+    );
+
   }
 
 }

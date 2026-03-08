@@ -27,7 +27,7 @@
 
   <ion-item>
     <ion-label position="stacked">Filtrar por categoría</ion-label>
-    <ion-select [(ngModel)]="filterCategory">
+    <ion-select [(ngModel)]="filterCategory" (ionChange)="applyFilter()">  
       <ion-select-option value="">Todas</ion-select-option>
       <ion-select-option value="none">Sin Categoría</ion-select-option>
       <ion-select-option *ngFor="let c of categories" [value]="c.id">
@@ -37,7 +37,7 @@
   </ion-item>
 
   <ion-list>
-    <ion-item *ngFor="let task of getFilteredTasks()">
+    <ion-item *ngFor="let task of filteredTasks">
 
       <ion-checkbox slot="start" [checked]="task.completed" (ionChange)="toggleTask(task.id)">
       </ion-checkbox>
