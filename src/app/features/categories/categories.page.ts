@@ -46,4 +46,22 @@ export class CategoriesPage implements OnInit {
     this.loadCategories();  
   }
 
+  deleteCategory(id: string) {
+    this.categoryService.deleteCategory(id);
+    this.loadCategories();
+  }
+
+  editCategory(category: Category) {
+
+    const newName = prompt('Editar categoría', category.name);
+
+    if (!newName) return;
+
+    category.name = newName;
+
+    this.categoryService.updateCategory(category);
+
+    this.loadCategories();
+  }
+
 }

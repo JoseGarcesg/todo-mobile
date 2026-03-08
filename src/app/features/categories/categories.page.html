@@ -20,6 +20,17 @@
 
     <ion-item *ngFor="let category of categories">
       <ion-label>{{category.name}}</ion-label>
+      <ion-button
+        color="warning"
+        (click)="editCategory(category)">
+        Editar
+      </ion-button>
+
+      <ion-button
+        color="danger"
+        (click)="deleteCategory(category.id)">
+        Eliminar
+      </ion-button>
     </ion-item>
 
   </ion-list>
